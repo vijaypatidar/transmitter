@@ -39,12 +39,6 @@ public class ClientHelper<T extends Serializable> {
             try {
                 socket.connect(new InetSocketAddress(host.trim(), port), timeOut);
                 intiStreams();
-                outputStream.writeObject(user);
-                try {
-                    Thread.sleep(1600);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
                 startReading();
                 if (onConnectionStatusListener!=null){
                     onConnectionStatusListener.onConnected(ClientHelper.this);

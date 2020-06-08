@@ -106,9 +106,8 @@ public class ServerHelper<T extends Serializable> implements OnConnectionStatusL
     @Override
     public void onDisconnected(ClientHelper<T> clientHelper) {
         connectedClients.remove(clientHelper);
-
         if (connectionStatusListener != null) {
-            connectionStatusListener.onNewClientJoin(clientHelper);
+            connectionStatusListener.onClientLeave(clientHelper);
         }
     }
 
