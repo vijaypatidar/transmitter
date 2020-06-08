@@ -92,6 +92,19 @@ public class ClientHelper<T extends Serializable> {
         }).start();
     }
 
+    public void disconnect(){
+        if (socket!=null){
+            new Thread(() -> {
+                try {
+                    socket.close();
+                    onConnectionStatusListener.onDisconnected(this);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }).start();
+        }
+    }
+
     public int getTimeOut() {
         return timeOut;
     }

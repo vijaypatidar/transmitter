@@ -3,11 +3,13 @@ package com.vkpapps.transmitter;
 import com.vkpapps.transmitter.interfaces.OnConnectionStatusListener;
 import com.vkpapps.transmitter.interfaces.OnObjectReceiveListener;
 import com.vkpapps.transmitter.interfaces.OnClientConnectionListener;
+import com.vkpapps.transmitter.interfaces.OnTimeoutListener;
 
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +24,9 @@ public class ServerHelper<T extends Serializable> implements OnConnectionStatusL
     private ServerSocket serverSocket;
     private final OnObjectReceiveListener<T> onObjectReceiveListener;
     private final OnClientConnectionListener<T> connectionStatusListener;
+    private OnTimeoutListener<T> onTimeoutListener;
+    private int timeout =-1;
+
     private final int port;
 
     private T user;
@@ -73,6 +78,9 @@ public class ServerHelper<T extends Serializable> implements OnConnectionStatusL
             clientHelper.setOnConnectionStatusListener(this);
             onConnected(clientHelper);
         } catch (IOException e) {
+            if (timeout>0&&onTimeoutListener!=null){
+                onTimeoutListener.onTimeout();
+            }
             e.printStackTrace();
         }
     }
@@ -115,11 +123,34 @@ public class ServerHelper<T extends Serializable> implements OnConnectionStatusL
         return connectedClients;
     }
 
+    public void disconnectClient(ClientHelper<T> clientHelper){
+        clientHelper.disconnect();
+    }
+
     public T getUser() {
         return user;
     }
 
     public void setUser(T user) {
         this.user = user;
+    }
+
+    public void setOnTimeoutListener(OnTimeoutListener<T> onTimeoutListener) {
+        this.onTimeoutListener = onTimeoutListener;
+    }
+
+    public int getTimeout() {
+        return timeout;
+    }
+
+    public void setTimeout(int timeout) {
+        if (timeout>0&&serverSocket!=null){
+            try {
+                serverSocket.setSoTimeout(timeout);
+            } catch (SocketException e) {
+                e.printStackTrace();
+            }
+        }
+        this.timeout = timeout;
     }
 }

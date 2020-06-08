@@ -42,7 +42,7 @@ Maven:
 Gradle:
 ```gradle
 dependencies {
-  implementation 'com.github.vijaypatidar31:transmitter:1.1'
+  implementation 'com.github.vijaypatidar31:transmitter:1.2'
 }
 ```
 
@@ -51,7 +51,7 @@ Maven:
 <dependency>
     <groupId>com.github.vijaypatidar31</groupId>
     <artifactId>transmitter</artifactId>
-    <version>1.1</version>
+    <version>1.2</version>
 </dependency>
 ```
     
