@@ -60,8 +60,8 @@ public class ClientHelper<T extends Serializable> {
 
     private void intiStreams() {
         try {
-            inputStream = new ObjectInputStream(socket.getInputStream());
             outputStream = new ObjectOutputStream(socket.getOutputStream());
+            inputStream = new ObjectInputStream(socket.getInputStream());
         } catch (IOException e) {
             e.printStackTrace();
         }
