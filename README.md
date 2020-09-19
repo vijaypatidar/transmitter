@@ -1,4 +1,5 @@
 [![](https://jitpack.io/v/vijaypatidar31/transmitter.svg)](https://jitpack.io/#vijaypatidar31/transmitter)
+![Maven Package](https://github.com/vijaypatidar/transmitter/workflows/Maven%20Package/badge.svg)
 # Transmitter
 Transmitter is a simple java library used for sending and receiving serialised object through java socket I/O stream,I build it for my project it can also be used for building multiplayer game like Tic-tac-toe and other easily.
 # Working
